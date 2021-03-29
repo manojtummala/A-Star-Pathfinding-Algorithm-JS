@@ -68,12 +68,12 @@ function draw() {
   if(openset.length > 0){
     // we can continue on...
     var winner = 0;
-    for (var i = 0; i < openSet.length; i++) {
-      if (openSet[i].f < openSet[winner].f) {
+    for (var i = 0; i < openset.length; i++) {
+      if (openset[i].f < openset[winner].f) {
         winner = i;
       }
   }
-  var current = openSet[winner];
+  var current = openset[winner];
 
   if (current === end) {
       noLoop();
@@ -81,8 +81,8 @@ function draw() {
   }
 
 // Best option moves from openSet to closedSet
-  removeFromArray(openSet, current);
-  closedSet.push(current);
+  removeFromArray(openset, current);
+  closedset.push(current);
 
   // Check all the neighbors
   var neighbors = current.neighbors;
@@ -90,12 +90,12 @@ function draw() {
       var neighbor = neighbors[i];
 
       // Valid next spot?
-      if (!closedSet.includes(neighbor) && !neighbor.wall) {
+      if (!closedset.includes(neighbor) && !neighbor.wall) {
         var tempG = current.g + heuristic(neighbor, current);
 
         // Is this a better path than before?
         var newPath = false;
-        if (openSet.includes(neighbor)) {
+        if (openset.includes(neighbor)) {
           if (tempG < neighbor.g) {
             neighbor.g = tempG;
             newPath = true;
@@ -103,7 +103,7 @@ function draw() {
         } else {
           neighbor.g = tempG;
           newPath = true;
-          openSet.push(neighbor);
+          openset.push(neighbor);
         }
 
         // Yes, it's a better path
